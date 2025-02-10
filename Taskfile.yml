@@ -1,0 +1,58 @@
+version: '3'
+
+tasks:
+  run:
+    desc: Run archviz with live-reload
+    cmds:
+      - go tool air
+
+  run:docker:
+    desc: Run archviz in docker container
+    cmds:
+      - docker compose up -d
+
+  build:
+    desc: Builds archviz
+    dir: ./cmd/archviz
+    cmds:
+      - go build .
+
+  lint:
+    desc: Runs linters
+    cmds:
+      - go vet ./...
+      - go tool govulncheck ./...
+      - go tool golangci-lint run ./...
+
+  lint:fix:
+    desc: Runs golangci-lint and fixes any issues
+    cmds:
+      - go tool golangci-lint run ./... --fix
+
+  lint:nilaway:
+    desc: Runs nilaway on codebase
+    cmds:
+      - go tool nilaway ./...
+
+  lint:deadcode:
+    desc: Runs deadcode on codebase
+    cmds:
+      - go tool deadcode --test ./...
+
+  test:
+    desc: Runs tests
+    cmds:
+      - go test --cover --shuffle=on --race --vet=all --failfast --count=1 --parallel=4 --timeout=120s --v ./...
+
+  format:
+    desc: Runs formatters on codebase
+    cmds:
+      - go tool golangci-lint fmt
+
+  cover:
+    desc: Go code coverage
+    cmds:
+      - go test ./... -coverprofile=coverage.out
+      - go tool cover -func=coverage.out | grep ^total
+      # - go tool cover -html=coverage.out
+      - rm -f coverage.out

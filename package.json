@@ -1,0 +1,36 @@
+{
+  "name": "archviz",
+  "version": "0.0.0",
+  "description": "Frontend part of the archviz project.",
+  "license": "MIT",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "source": [
+    "./cmd/archviz/assets/scripts.js",
+    "./cmd/archviz/assets/styles.scss"
+  ],
+  "targets": {
+    "default": {
+      "distDir": "./cmd/archviz/static"
+    }
+  },
+  "scripts": {
+    "watch": "parcel watch",
+    "fmt": "prettier --write .",
+    "dev": "parcel build --no-optimize",
+    "build": "parcel build"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "latest",
+    "@tailwindcss/typography": "latest",
+    "alpinejs": "latest",
+    "caniuse-lite": "^1.0.30001700",
+    "daisyui": "^5.0.0-beta.8",
+    "htmx.org": "^2.0.4",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "latest",
+    "parcel": "latest",
+    "prettier": "latest"
+  }
+}

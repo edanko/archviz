@@ -1,0 +1,47 @@
+package components
+
+import (
+	"context"
+	"encoding/base64"
+	"io"
+)
+
+templ ShowSVG(svgContent []byte) {
+	<div id="render-svg">
+		@Unsafe(string(svgContent))
+	</div>
+	@ShowSVGScript()
+}
+
+func encodeAsDataURI(content []byte) string {
+	return "data:image/svg+xml;base64," + base64.StdEncoding.EncodeToString(content)
+}
+
+script ShowSVGScript() {
+	console.log(
+		"ShowSVGScript is running",
+	);
+
+  const renderEl = document.getElementById("render-svg");
+  const containerWidth = renderEl.getBoundingClientRect().width;
+  const containerHeight = renderEl.getBoundingClientRect().height;
+
+  // skip over the xml version tag
+  const svgEl = renderEl.lastChild;
+
+  svgEl.id = "diagram";
+
+  Zoom.attach();
+
+  svgEl.setAttribute("width", `${containerWidth}px`);
+  svgEl.setAttribute("height", `${containerHeight}px`);
+
+}
+
+// Unsafe returns a content as is, without escaping.
+func Unsafe(html string) templ.Component {
+	return templ.ComponentFunc(func(_ context.Context, w io.Writer) (err error) {
+		_, err = io.WriteString(w, html)
+		return
+	})
+}

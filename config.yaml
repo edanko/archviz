@@ -1,0 +1,41 @@
+---
+logger:
+  level: "INFO"
+app:
+  environment: "development"
+  shutdownTimeout: 20s
+debug:
+  host: 0.0.0.0
+  port: 5000
+http:
+  host: 0.0.0.0
+  port: 7000
+  readTimeout: 5s
+  writeTimeout: 10s
+  idleTimeout: 120s
+render:
+  direction: down
+  layoutEngine: tala
+  minify: true
+  theme: default
+  imageBundler: true
+  classes:
+    - name: "go"
+      icon: "https://icons.terrastruct.com/dev/go.svg"
+    - name: "postgres"
+      shape: "cylinder"
+      icon: "https://icons.terrastruct.com/dev/postgresql.svg"
+    - name: "krakend"
+      icon: "https://github.com/devopsfaith/krakend.io/blob/master/images/logo-mini.png?raw=true"
+    - name: "valkey"
+      icon: "https://valkey.io/img/Valkey-logo.svg"
+    - name: "person"
+      shape: "c4-person"
+    - name: "cpp"
+      icon: "https://icons.terrastruct.com/dev%2Fcplusplus.svg"
+    - name: "rust"
+      icon: "https://icons.terrastruct.com/dev%2Frust.svg"
+    - name: "device"
+      icon: "https://icons.terrastruct.com/azure%2FMobile%20Service%20Color%2FAzure%20App%20Service%20-%20Mobile.svg"
+    - name: "nginx"
+      icon: "https://icons.terrastruct.com/dev%2Fnginx.svg"

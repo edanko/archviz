@@ -1,0 +1,137 @@
+version: "2"
+run:
+  tests: false
+linters:
+  default: none
+  enable:
+    - bodyclose
+    - copyloopvar
+    - dogsled
+    - dupl
+    - errcheck
+    - errorlint
+    - funlen
+    - gocheckcompilerdirectives
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - goprintffuncname
+    - gosec
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - mnd
+    - nakedret
+    - nilerr
+    - nilnil
+    - noctx
+    - nolintlint
+    - recvcheck
+    - revive
+    - staticcheck
+    - tagalign
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+  settings:
+    errorlint:
+      asserts: false
+    funlen:
+      lines: 120
+      ignore-comments: true
+    goconst:
+      min-len: 3
+      min-occurrences: 3
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - experimental
+        - opinionated
+        - performance
+        - style
+    gocyclo:
+      min-complexity: 15
+    gosec:
+      excludes:
+        - G101
+        - G108
+    govet:
+      enable:
+        - shadow
+    lll:
+      line-length: 300
+    misspell:
+      locale: US
+    mnd:
+      checks:
+        - argument
+        - case
+        - condition
+        - return
+      ignored-functions:
+        - byte
+    nolintlint:
+      require-explanation: false
+      require-specific: false
+      allow-unused: false
+    revive:
+      rules:
+        - name: unexported-return
+          disabled: true
+        - name: unused-parameter
+    recvcheck:
+      disable-builtin: true
+    tagalign:
+      order:
+        - json
+        - yaml
+        - yml
+        - toml
+        - mapstructure
+        - binding
+        - db
+        - validate
+        - env
+        - env-default
+        - env-required
+      strict: true
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - mnd
+        path: _test\.go
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+      - '.*_templ\\.go$'
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    gofmt:
+      rewrite-rules:
+        - pattern: interface{}
+          replacement: any
+        - pattern: 'a[b:len(a)]'
+          replacement: 'a[b:]'
+    goimports:
+      local-prefixes:
+        - github.com/edanko/archviz
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+      - '.*_templ\\.go$'

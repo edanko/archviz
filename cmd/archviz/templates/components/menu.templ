@@ -1,0 +1,58 @@
+package components
+
+type MenuProps struct {
+	Title string
+	Class string
+}
+
+templ Menu(props MenuProps) {
+	<ul class={ "menu", props.Class }>
+		if props.Title != "" {
+			<h2 class="font-bold">{ props.Title }</h2>
+		}
+		{ children... }
+	</ul>
+}
+
+type MenuItemProps struct {
+	Label string
+	Href  string
+	Attrs templ.Attributes
+	Icon  templ.Component
+}
+
+templ MenuItem(props MenuItemProps) {
+	<li>
+		<a href={ templ.SafeURL(props.Href) } { props.Attrs... }>
+			if props.Icon != nil {
+				@props.Icon
+			}
+			{ props.Label }
+		</a>
+		<ul>
+			{ children... }
+		</ul>
+	</li>
+}
+
+type SubmenuProps struct {
+	Title string
+	Attrs templ.Attributes
+	Icon  templ.Component
+}
+
+templ Submenu(props SubmenuProps) {
+	<li>
+		<details { props.Attrs... }>
+			<summary>
+				if props.Icon != nil {
+					@props.Icon
+				}
+				{ props.Title }
+			</summary>
+			<ul>
+				{ children... }
+			</ul>
+		</details>
+	</li>
+}

@@ -1,0 +1,46 @@
+package layout
+
+templ Base(title string) {
+	<!DOCTYPE html>
+	<html x-data="{theme: 'dark'}" :class="theme" lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+			<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' ws://localhost:*; img-src 'self' data:; object-src 'self' data:;"/>
+			<meta name="theme-color" content="#FEFEF5"/>
+			<title>{ title }</title>
+			<link rel="dns-prefetch" href="//fonts.googleapis.com"/>
+			<link rel="dns-prefetch" href="//fonts.gstatic.com"/>
+			<link rel="preconnect" href="//fonts.googleapis.com" crossorigin/>
+			<link rel="preconnect" href="//fonts.gstatic.com" crossorigin/>
+			<link rel="manifest" href="/static/manifest.json"/>
+			<link rel="apple-touch-icon" href="/static/apple-touch-icon.png"/>
+			<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"/>
+			<link rel="icon" href="/static/favicon.svg" type="image/svg+xml"/>
+			<link rel="icon" href="/static/favicon.png" sizes="any"/>
+			<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"/>
+			<link href="/static/styles.css" rel="stylesheet"/>
+		</head>
+		// FIXME: It's better to place scripts in the end of the body tag.
+		// But how can we use some scripts result inside the body tag?
+		// For now, it's affecting zoom initialization when user requests a view page directly.
+		// And this affects Alpine initialization too, because it's too early.
+		<script src="/static/scripts.js"></script>
+		<script src="/static/panzoom.min.js" crossorigin></script>
+		<body class="flex min-h-full bg-white antialiased dark:bg-zinc-900" onload={ BodyScripts() }>
+			<div class="w-full">
+				{ children... }
+			</div>
+		</body>
+	</html>
+}
+
+script BodyScripts() {
+	console.log(
+		"Hello from BodyScripts()",
+	);
+
+  // FIXME: this is just wrong.
+  document.querySelector('html').setAttribute('data-theme', 'light');
+}

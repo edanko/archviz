@@ -1,0 +1,10 @@
+- do not recompile d2 script if data is not changed. use some cache.
+- add tala instructions and installation to dockerfile, with key as env variable.
+- перенести меню в подменю "Архитектура"
+- по клику на неё показывать иерархию всю (только title)
+- ко клику на контектсы показывать иерархию контекстов?
+- раздел проблемы (с валидацией?)
+- раздел документы, туда md?
+- чат-бот?
+- фронт работает в браузере админа
+-
