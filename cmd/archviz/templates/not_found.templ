@@ -1,0 +1,14 @@
+package templates
+
+import "context"
+
+templ NotFound() {
+	<div>404</div>
+}
+
+func NameFromContext(ctx context.Context) string {
+	if name, ok := ctx.Value("name").(string); ok && name != "" {
+		return name
+	}
+	return "World"
+}
